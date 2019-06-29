@@ -13,6 +13,7 @@ import com.likhit.variants.data.models.Variation;
 import com.likhit.variants.databinding.ActivityCompanyBinding;
 import com.likhit.variants.listeners.OnItemClickListener;
 import com.likhit.variants.ui.VariantAdapter;
+import com.likhit.variants.utils.ActivityLauncher;
 import com.likhit.variants.utils.AppConstants;
 
 public class CompanyActivity extends BaseActivity implements OnItemClickListener<Variation> {
@@ -28,7 +29,7 @@ public class CompanyActivity extends BaseActivity implements OnItemClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_company);
-        setupToolbar(getString(R.string.company), true);
+        setupToolbar(getString(R.string.company), true) ;
         if (getIntent().getSerializableExtra(AppConstants.BUNDLE_KEY_BASE_RESPONSE) != null) {
             variants = (BaseResponse) getIntent().getSerializableExtra(AppConstants.BUNDLE_KEY_BASE_RESPONSE);
             variantGroup = (VariantGroup) getIntent().getSerializableExtra(AppConstants.BUNDLE_KEY_VARIANT_GROUP);
@@ -47,6 +48,8 @@ public class CompanyActivity extends BaseActivity implements OnItemClickListener
 
     @Override
     public void onItemClick(Variation item, int position, View view) {
-
+        if (variants.getVariants().getVariantGroups().size() > 0) {
+            ActivityLauncher.launchHomeActivity(variants, variantGroup.getGroupId(), item.getId(), this);
+        }
     }
 }
