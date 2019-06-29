@@ -1,6 +1,5 @@
-package com.likhit.variants.ui;
+package com.likhit.variants.ui.helper;
 
-import com.likhit.variants.data.models.BaseResponse;
 import com.likhit.variants.data.models.ExcludeItem;
 import com.likhit.variants.data.models.ExcludeListHelperModel;
 import com.likhit.variants.data.models.Variation;

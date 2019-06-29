@@ -12,7 +12,7 @@ import com.likhit.variants.data.models.VariantGroup;
 import com.likhit.variants.data.models.Variation;
 import com.likhit.variants.databinding.ActivityLocationBinding;
 import com.likhit.variants.listeners.OnItemClickListener;
-import com.likhit.variants.ui.VariantAdapter;
+import com.likhit.variants.ui.helper.VariantAdapter;
 import com.likhit.variants.utils.ActivityLauncher;
 import com.likhit.variants.utils.AppConstants;
 
@@ -52,7 +52,7 @@ public class LocationActivity extends BaseActivity implements OnItemClickListene
     @Override
     public void onItemClick(Variation item, int position, View view) {
         if (variants.getVariants().getVariantGroups().size() > 0) {
-            ActivityLauncher.launchHomeActivity(variants, variantGroup.getGroupId(), item.getId(), this);
+            ActivityLauncher.launchHomeActivity(variants, variantGroup.getGroupId(), item.getId(), item.getName(), this);
         }
     }
 }

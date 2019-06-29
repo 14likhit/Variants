@@ -16,7 +16,7 @@ import com.likhit.variants.data.models.VariantGroup;
 import com.likhit.variants.data.models.Variants;
 import com.likhit.variants.databinding.ActivityHomeBinding;
 import com.likhit.variants.listeners.OnItemClickListener;
-import com.likhit.variants.ui.ExcludedListHelper;
+import com.likhit.variants.ui.helper.ExcludedListHelper;
 import com.likhit.variants.utils.ActivityLauncher;
 import com.likhit.variants.utils.AppConstants;
 
@@ -51,11 +51,11 @@ public class HomeActivity extends BaseActivity implements SwipeRefreshLayout.OnR
             variantGroupList = variants.getVariants().getVariantGroups();
             fromGroupId = getIntent().getStringExtra(AppConstants.BUNDLE_KEY_FROM_GROUP_ID);
             fromVariantID = getIntent().getStringExtra(AppConstants.BUNDLE_KEY_FROM_VARIANT_ID);
-            setupToolbar(getString(R.string.options), true);
+            setupToolbar(getIntent().getStringExtra(AppConstants.BUNDLE_KEY_TITLE), true);
             setOnRefresh = false;
             initView();
         } else {
-            setupToolbar(getString(R.string.home), false);
+            setupToolbar(getString(R.string.app_name), false);
             variantsViewModel = ViewModelProviders.of(this).get(VariantsViewModel.class);
             setOnRefresh = true;
             getVariants();

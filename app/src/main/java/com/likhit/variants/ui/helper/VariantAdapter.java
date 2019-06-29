@@ -1,4 +1,4 @@
-package com.likhit.variants.ui;
+package com.likhit.variants.ui.helper;
 
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
@@ -11,7 +11,11 @@ import com.likhit.variants.R;
 import com.likhit.variants.data.models.Variation;
 import com.likhit.variants.databinding.LayoutVariantItemBinding;
 import com.likhit.variants.listeners.OnItemClickListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 public class VariantAdapter extends RecyclerView.Adapter<VariantAdapter.VariantViewHolder> {
@@ -47,12 +51,41 @@ public class VariantAdapter extends RecyclerView.Adapter<VariantAdapter.VariantV
     public void onBindViewHolder(@NonNull final VariantViewHolder variantViewHolder, int i) {
         final Variation variation = variations.get(i);
         variantViewHolder.binding.textVariationTitle.setText(variation.getName());
+        String imageUrlNoParams = getUrlWithoutParameters(variation.getLogo());
+        Picasso.get().load(variation.getLogo())
+                .stableKey(imageUrlNoParams)
+                .placeholder(R.drawable.ic_check_box)
+                .fit()
+                .into(variantViewHolder.binding.imageLogo, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
         variantViewHolder.binding.layoutItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onItemClickListener.onItemClick(variation, variantViewHolder.getAdapterPosition(), v);
             }
         });
+    }
+
+    private String getUrlWithoutParameters(String url) {
+        try {
+            URI uri = new URI(url);
+            return new URI(uri.getScheme(),
+                    uri.getAuthority(),
+                    uri.getPath(),
+                    null, // Ignore the query part of the input url
+                    uri.getFragment()).toString();
+        } catch (URISyntaxException e) {
+            return url;
+        }
     }
 
     @Override
