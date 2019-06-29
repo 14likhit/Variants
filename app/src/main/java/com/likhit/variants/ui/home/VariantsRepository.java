@@ -35,6 +35,7 @@ public class VariantsRepository {
             @Override
             public void onFailure(@NonNull Call<BaseResponse> call, @NonNull Throwable t) {
                 Log.e("API", t.getMessage());
+                variantsMutableLiveData.setValue(null);
             }
         });
         return variantsMutableLiveData;
