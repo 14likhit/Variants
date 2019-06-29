@@ -11,19 +11,23 @@ import android.view.ViewGroup;
 import com.likhit.variants.R;
 import com.likhit.variants.data.models.VariantGroup;
 import com.likhit.variants.databinding.LayoutVariantItemBinding;
+import com.likhit.variants.listeners.OnItemClickListener;
 
 import java.util.List;
 
-public class VariantGroupAdapter extends RecyclerView.Adapter<VariantGroupAdapter.VariantViewHolder> {
+public class VariantGroupAdapter extends RecyclerView.Adapter<VariantGroupAdapter.VariantGroupViewHolder> {
 
     private List<VariantGroup> variations;
+
+    private OnItemClickListener<VariantGroup> onItemClickListener;
 
     private Context context;
 
     private LayoutInflater layoutInflater;
 
-    public VariantGroupAdapter(Context context) {
+    public VariantGroupAdapter(Context context, OnItemClickListener<VariantGroup> onItemClickListener) {
         this.context = context;
+        this.onItemClickListener = onItemClickListener;
     }
 
     public List<VariantGroup> getVariations() {
@@ -36,17 +40,23 @@ public class VariantGroupAdapter extends RecyclerView.Adapter<VariantGroupAdapte
 
     @NonNull
     @Override
-    public VariantViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public VariantGroupViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         if (layoutInflater == null) {
             layoutInflater = LayoutInflater.from(viewGroup.getContext());
         }
-        return new VariantGroupAdapter.VariantViewHolder(layoutInflater.inflate(R.layout.layout_variant_item, viewGroup, false));
+        return new VariantGroupViewHolder(layoutInflater.inflate(R.layout.layout_variant_item, viewGroup, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VariantViewHolder variantViewHolder, int i) {
-        VariantGroup variantGroup = variations.get(i);
+    public void onBindViewHolder(@NonNull final VariantGroupViewHolder variantViewHolder, int i) {
+        final VariantGroup variantGroup = variations.get(i);
         variantViewHolder.binding.textVariationTitle.setText(variantGroup.getName());
+        variantViewHolder.binding.layoutItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onItemClick(variantGroup, variantViewHolder.getAdapterPosition(), v);
+            }
+        });
     }
 
     @Override
@@ -57,10 +67,10 @@ public class VariantGroupAdapter extends RecyclerView.Adapter<VariantGroupAdapte
         return 0;
     }
 
-    class VariantViewHolder extends RecyclerView.ViewHolder {
+    class VariantGroupViewHolder extends RecyclerView.ViewHolder {
         private LayoutVariantItemBinding binding;
 
-        VariantViewHolder(@NonNull View itemView) {
+        VariantGroupViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = DataBindingUtil.bind(itemView);
         }

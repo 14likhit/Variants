@@ -2,4 +2,9 @@
     <string name="app_name">Variants</string>
     <string name="default_content_description">ImageView</string>
     <string name="home">Home</string>
+    <string name="options">Options</string>
+    <string name="generic_error">Unable to load. Please Check Internet Connection</string>
+    <string name="locations">Locations</string>
+    <string name="jobs">Jobs</string>
+    <string name="company">Company</string>
 </resources>

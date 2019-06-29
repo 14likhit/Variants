@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.likhit.variants.R;
 import com.likhit.variants.utils.Util;
@@ -101,11 +102,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     @Override
     public void showMessage(String message) {
-
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showMessage(int messageResId) {
-
+        Toast.makeText(this, getString(messageResId), Toast.LENGTH_SHORT).show();
     }
 }
