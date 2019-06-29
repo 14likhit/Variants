@@ -13,6 +13,10 @@ public class BaseResponse implements Serializable {
         this.variants = variants;
     }
 
+    public BaseResponse(BaseResponse response) {
+        this.variants = new Variants(response.getVariants());
+    }
+
     public Variants getVariants() {
         return variants;
     }

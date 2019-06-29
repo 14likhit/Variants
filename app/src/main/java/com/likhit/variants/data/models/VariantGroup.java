@@ -33,4 +33,8 @@ public class VariantGroup implements Serializable {
     public List<Variation> getVariations() {
         return variations;
     }
+
+    public void setVariations(List<Variation> variations) {
+        this.variations = variations;
+    }
 }

@@ -15,9 +15,11 @@ public class ActivityLauncher {
     public ActivityLauncher() {
     }
 
-    public static void launchHomeActivity(BaseResponse baseResponse, Activity activity) {
+    public static void launchHomeActivity(BaseResponse baseResponse, String fromGroupId, String fromVariantId, Activity activity) {
         Intent intent = new Intent(activity, HomeActivity.class);
         intent.putExtra(AppConstants.BUNDLE_KEY_BASE_RESPONSE, baseResponse);
+        intent.putExtra(AppConstants.BUNDLE_KEY_FROM_GROUP_ID, fromGroupId);
+        intent.putExtra(AppConstants.BUNDLE_KEY_FROM_VARIANT_ID, fromVariantId);
         activity.startActivity(intent);
     }
 
